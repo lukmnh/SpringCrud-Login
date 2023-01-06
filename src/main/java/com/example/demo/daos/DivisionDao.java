@@ -66,30 +66,51 @@ public class DivisionDao {
         return divId;
     }
 
+    public Division getRegion() {
+        Division division = new Division();
+        String query = "SELECT r.Name FROM division d Join region r On d.regionId = r.Id";
+        try {
+            PreparedStatement prepareStatement = conn.prepareStatement(query);
+            ResultSet resultSet = prepareStatement.executeQuery();
+            while (resultSet.next()) {
+                Region region = new Region();
+                division.setRegion(region);
+                region.setName(resultSet.getString(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return division;
+    }
+
     // insert data to table division
     public boolean insertData(Division division) {
+        // division.setId(5);
+
         try {
             PreparedStatement preparedStatement = conn
-                    .prepareStatement("insert into division(id, name, regionId) values(?,?,?)");
-            preparedStatement.setInt(1, division.getId());
-            preparedStatement.setString(2, division.getName());
-            // preparedStatement.setString(3, division.getRegionId());
+                    .prepareStatement("Insert INTO division(name, regionId) values(?,?)");
+            preparedStatement.setString(1, division.getName());
+            Region region = new Region();
+            region.setId(6);
+            division.setRegion(region);
+            preparedStatement.setInt(2, division.getRegion().getId());
             int temp = preparedStatement.executeUpdate();
             return temp > 0;
-
         } catch (SQLException e) {
-            // TODO: handle exception
             e.printStackTrace();
         }
         return false;
+
     }
 
     // update data on table division
-    public boolean updateData(Division division {
+    public boolean updateData(Division division) {
         try {
             PreparedStatement preparedStatement = conn
-                    .prepareStatement("update division set name = ?, set regionId = ? where id = ?");
-            preparedStatement.setInt(2, division.getById());
+                    .prepareStatement("update division set name = ? where id = ?"); // set regionId = ?
+            preparedStatement.setString(1, division.getName());
+            preparedStatement.setInt(2, division.getId());
             // preparedStatement.setString(1, division.getRegionId());
             preparedStatement.execute();
             return true;
@@ -113,4 +134,5 @@ public class DivisionDao {
         }
         return false;
     }
+
 }
