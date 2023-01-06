@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <h1>FORM</h1>
+    <form th:action="@{/division/save}" method="post" th:object="${division}">
+      <div class="container">
+        <div class="form-group" hidden>
+          <label for="id" class="col-form-label">ID</label>
+          <input
+            type="text"
+            class="form-control"
+            id="id"
+            th:field="*{divisionId}"
+          />
+        </div>
+        <div class="form-group col-md-3">
+          <label for="divisionName" class="col-form-label">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="divisionName"
+            th:field="*{divisionName}"
+          />
+        </div>
+        <div class="form-group col-md-3">
+          <!-- <select id="regionId" class="form-control" th:field="*{regionId}"></select> -->
+          <label for="regionId" class="col-form-label">RegionId</label>
+          <input
+            type="text"
+            class="form-control"
+            id="regionId"
+            th:field="*{regionId}"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a
+          class="btn btn-primary"
+          style="margin-bottom: 10px; margin-top: 10px; color: azure"
+          th:href="@{/division}"
+        >
+          back</a
+        >
+      </div>
+    </form>
+  </body>
+</html>

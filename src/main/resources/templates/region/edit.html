@@ -1,0 +1,68 @@
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+  </head>
+  <style>
+    h1 {
+      text-align: center;
+    }
+    .form-control {
+      text-align: center;
+      justify-content: center;
+    }
+    .col-form-label {
+      text-align: center;
+      justify-content: center;
+    }
+  </style>
+  <body>
+    <h1>EDIT FORM</h1>
+    <form th:action="@{/region/update}" method="post" th:object="${region}">
+      <div class="container">
+        <div class="form-group">
+          <label for="id" class="col-form-label">ID</label>
+          <input
+            type="text"
+            class="form-control"
+            id="id"
+            th:field="*{regionId}"
+            readonly
+          />
+        </div>
+        <div class="form-group col-md-3">
+          <label for="regionName" class="col-form-label">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="regionName"
+            th:field="*{regionName}"
+          />
+        </div>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          style="text-align: center"
+        >
+          Submit
+        </button>
+        <a
+          class="btn btn-primary"
+          style="
+            margin-bottom: 10px;
+            margin-top: 10px;
+            color: azure;
+            text-align: center;
+          "
+          th:href="@{/region}"
+        >
+          back</a
+        >
+      </div>
+    </form>
+  </body>
+</html>
