@@ -8,38 +8,38 @@ import javax.persistence.*;
 @Table(name = "division")
 public class Division {
     @Id
-    @Column(name = "divisionId")
+    @Column(name = "id")
     // annotation auto increment
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer divisionId;
-    @Column(name = "divisionName", nullable = false)
-    private String divisionName;
-    // @ManyToOne
-    @JoinColumn(name = "region_id", referencedColumnName = "regionId")
-    private String region_id;
+    private Integer id;
+    @Column(name = "name", nullable = false)
+    private String name;
+    @ManyToOne
+    @JoinColumn(name = "regionId", referencedColumnName = "id")
+    private Region region;
 
-    public Integer getDivisionId() {
-        return divisionId;
+    public Integer getId() {
+        return id;
     }
 
-    public String getDivisionName() {
-        return divisionName;
+    public String getName() {
+        return name;
     }
 
-    public String getRegionId() {
-        return region_id;
+    public Region getRegion() {
+        return region;
     }
 
-    public void setDivisionId(Integer divisionId) {
-        this.divisionId = divisionId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setDivisionName(String divisionName) {
-        this.divisionName = divisionName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setRegionId(String region_id) {
-        this.region_id = region_id;
+    public void setRegion(Region region) {
+        this.region = region;
     }
 
 }
