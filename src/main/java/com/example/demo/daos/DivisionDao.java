@@ -85,11 +85,11 @@ public class DivisionDao {
     }
 
     // update data on table division
-    public boolean updateData(Division division) {
+    public boolean updateData(Integer id) {
         try {
             PreparedStatement preparedStatement = conn
                     .prepareStatement("update division set name = ?, set regionId = ? where id = ?");
-            preparedStatement.setInt(2, division.getId());
+            preparedStatement.setInt(2, id);
             // preparedStatement.setString(1, division.getRegionId());
             preparedStatement.execute();
             return true;
