@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.demo.models.Division;
+import com.example.demo.models.Region;
 
 public class DivisionDao {
     private Connection conn;
@@ -19,7 +20,9 @@ public class DivisionDao {
     // get all data from table division
     public List<Division> getAll() {
         List<Division> division = new ArrayList<>();
-       List<Region> region = new ArrayList<>();
+        // List<Region> region = new ArrayList<>();
+        // String query = "Select d.id, d.name, r.name from division d join region r on
+        // d.regionId = r.id order by d.id asc";
         String query = "Select * from division d join region r  on d.regionId = r.id order by d.id asc";
         try {
             ResultSet resultSet = conn.prepareStatement(query).executeQuery();
@@ -32,7 +35,7 @@ public class DivisionDao {
                 reg.setId(resultSet.getInt(4));
                 reg.setName(resultSet.getString(5));
                 division.add(div);
-                region.add(reg);
+                // region.add(reg);
             }
         } catch (Exception e) {
             // TODO: handle exception
@@ -42,18 +45,18 @@ public class DivisionDao {
     }
 
     // get data by id from table division
-    public Division getById(Integer divisionId) {
+    public Division getById(Integer Id) {
         Division divId = new Division();
-        String que = "select * from division where divisionId = ?";
+        String que = "select * from division where id = ?";
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(que);
-            preparedStatement.setInt(1, divisionId);
+            preparedStatement.setInt(1, Id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
 
-                divId.setDivisionId(resultSet.getInt(1));
-                divId.setDivisionName(resultSet.getString(2));
-                divId.setRegionId(resultSet.getString(3));
+                divId.setId(resultSet.getInt(1));
+                divId.setName(resultSet.getString(2));
+                // divId.setRegion(resultSet.getObject(3));
 
             }
         } catch (Exception e) {
@@ -67,10 +70,10 @@ public class DivisionDao {
     public boolean insertData(Division division) {
         try {
             PreparedStatement preparedStatement = conn
-                    .prepareStatement("insert into division(divisionId, divisionName, region_id) values(?,?,?)");
-            preparedStatement.setInt(1, division.getDivisionId());
-            preparedStatement.setString(2, division.getDivisionName());
-            preparedStatement.setString(3, division.getRegionId());
+                    .prepareStatement("insert into division(id, name, regionId) values(?,?,?)");
+            preparedStatement.setInt(1, division.getId());
+            preparedStatement.setString(2, division.getName());
+            // preparedStatement.setString(3, division.getRegionId());
             int temp = preparedStatement.executeUpdate();
             return temp > 0;
 
@@ -85,9 +88,9 @@ public class DivisionDao {
     public boolean updateData(Division division) {
         try {
             PreparedStatement preparedStatement = conn
-                    .prepareStatement("update division set region_id = ? where divisionId = ?");
-            preparedStatement.setInt(2, division.getDivisionId());
-            preparedStatement.setString(1, division.getRegionId());
+                    .prepareStatement("update division set name = ?, set regionId = ? where id = ?");
+            preparedStatement.setInt(2, division.getId());
+            // preparedStatement.setString(1, division.getRegionId());
             preparedStatement.execute();
             return true;
         } catch (SQLException e) {
@@ -97,11 +100,11 @@ public class DivisionDao {
         return false;
     }
 
-    public boolean deleteData(Division division) {
+    public boolean deleteData(Integer id) {
         try {
             PreparedStatement preparedStatement = conn
-                    .prepareStatement("delete from division where divisionId = ?");
-            preparedStatement.setInt(1, division.getDivisionId());
+                    .prepareStatement("delete from division where id = ?");
+            preparedStatement.setInt(1, id);
             preparedStatement.execute();
             return true;
         } catch (Exception e) {
