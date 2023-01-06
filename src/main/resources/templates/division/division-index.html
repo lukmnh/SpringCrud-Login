@@ -35,19 +35,19 @@
         </tr>
         <tbody>
           <tr th:each="division : ${divisions}">
-            <td th:text="${division.divisionId}"></td>
-            <td th:text="${division.divisionName}"></td>
-            <td th:text="${division.regionId}"></td>
+            <td th:text="${division.Id}"></td>
+            <td th:text="${division.name}"></td>
+            <td th:text="${division.region.name}"></td>
             <td>
               <a
                 class="btn btn-info"
-                th:href="@{/division/form/{divisionId}(divisionId=${division.divisionId})}"
+                th:href="@{/division/form/{id} (id=${division.id})}"
                 >edit</a
               >
             </td>
             <td>
               <form
-                th:action="@{/region/delete/{divisionId}(divisionId=${division.divisionId})}"
+                th:action="@{/region/delete/{id} (id=${division.id})}"
                 th:method="post"
               >
                 <button
