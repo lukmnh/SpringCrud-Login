@@ -19,15 +19,20 @@ public class DivisionDao {
     // get all data from table division
     public List<Division> getAll() {
         List<Division> division = new ArrayList<>();
-        String query = "Select d.divisionId, d.divisionName, r.regionName from division d join region r  on d.region_id = r.regionId order by d.divisionId asc";
+       List<Region> region = new ArrayList<>();
+        String query = "Select * from division d join region r  on d.regionId = r.id order by d.id asc";
         try {
             ResultSet resultSet = conn.prepareStatement(query).executeQuery();
             while (resultSet.next()) {
                 Division div = new Division();
-                div.setDivisionId(resultSet.getInt(1));
-                div.setDivisionName(resultSet.getString(2));
-                div.setRegionId(resultSet.getString(3));
+                Region reg = new Region();
+                div.setId(resultSet.getInt(1));
+                div.setName(resultSet.getString(2));
+                div.setRegion(reg);
+                reg.setId(resultSet.getInt(4));
+                reg.setName(resultSet.getString(5));
                 division.add(div);
+                region.add(reg);
             }
         } catch (Exception e) {
             // TODO: handle exception
