@@ -10,24 +10,24 @@ public class Region {
     @Id
     // ID auto increment
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "regionId")
-    private Integer regionId;
-    @Column(name = "regionName", nullable = false)
-    private String regionName;
+    @Column(name = "id")
+    private Integer Id;
+    @Column(name = "name", nullable = false)
+    private String Name;
 
-    public Integer getRegionId() {
-        return regionId;
+    public Integer getId() {
+        return Id;
     }
 
-    public String getRegionName() {
-        return regionName;
+    public String getName() {
+        return Name;
     }
 
-    public void setRegionId(Integer regionId) {
-        this.regionId = regionId;
+    public void setId(Integer Id) {
+        this.Id = Id;
     }
 
-    public void setRegionName(String regionName) {
-        this.regionName = regionName;
+    public void setName(String Name) {
+        this.Name = Name;
     }
 }

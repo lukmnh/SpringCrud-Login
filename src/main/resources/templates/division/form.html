@@ -32,17 +32,28 @@
         </div>
 
         <div class="form-group col-md-3">
-          <!-- <select id="regionId" class="form-control" th:field="*{regionId}"></select> -->
-          <!-- <select class="form-control" id="dropDownList">
+          <!-- <select id="regionId" class="form-control">
+            <c:forEach items="region: ${regions}">
+              <option value="${division.regionId }">
+                ${division.region.name }
+              </option>
+            </c:forEach>
+          </select> -->
+          <select class="form-control" id="region.id" th:field="*{region.id}">
             <option value="0">select option</option>
-            <option th:each="option : ${divisionList}" th:value="${divisionList}" th:text="${divisionList}"></option>
-        </select> -->
+            <option
+              th:each="region : ${regions}"
+              th:value="${region.id}"
+              th:text="${region.name}"
+            ></option>
+          </select>
           <!-- <label for="regionId" class="col-form-label">RegionId</label>
           <input
             type="text"
             class="form-control"
             id="regionId"
             th:field="*{division.region.name}"
+            th:field="*{regionId}" 
           /> -->
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>

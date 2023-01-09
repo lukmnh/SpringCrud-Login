@@ -13,12 +13,7 @@
       <div class="container">
         <div class="form-group" hidden>
           <label for="id" class="col-form-label">ID</label>
-          <input
-            type="text"
-            class="form-control"
-            id="id"
-            th:field="*{regionId}"
-          />
+          <input type="text" class="form-control" id="id" th:field="*{id}" />
         </div>
         <div class="form-group col-md-3">
           <label for="regionName" class="col-form-label">Name</label>
@@ -26,7 +21,7 @@
             type="text"
             class="form-control"
             id="regionName"
-            th:field="*{regionName}"
+            th:field="*{name}"
           />
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>

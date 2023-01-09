@@ -13,13 +13,13 @@ public class RegionDao {
 
     public List<Region> getAllData() {
         List<Region> region = new ArrayList<>();
-        String query = "Select regionId, regionName from region";
+        String query = "Select id, name from region";
         try {
             ResultSet resultSet = conn.prepareStatement(query).executeQuery();
             while (resultSet.next()) {
                 Region reg = new Region();
-                reg.setRegionId(resultSet.getInt(1));
-                reg.setRegionName(resultSet.getString(2));
+                reg.setId(resultSet.getInt(1));
+                reg.setName(resultSet.getString(2));
                 region.add(reg);
             }
         } catch (Exception e) {
@@ -39,17 +39,17 @@ public class RegionDao {
 
     // }
 
-    public Region getById(Integer regionId) {
+    public Region getById(Integer id) {
         Region regId = new Region();
-        String que = "select * from region where regionId = ?";
+        String que = "select * from region where id = ?";
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(que);
-            preparedStatement.setInt(1, regionId);
+            preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
 
-                regId.setRegionId(resultSet.getInt(1));
-                regId.setRegionName(resultSet.getString(2));
+                regId.setId(resultSet.getInt(1));
+                regId.setName(resultSet.getString(2));
 
             }
         } catch (Exception e) {
@@ -76,8 +76,8 @@ public class RegionDao {
     // }
     public boolean insertData(Region region) {
         try {
-            PreparedStatement preparedStatement = conn.prepareStatement("Insert INTO region(regionName) values(?)");
-            preparedStatement.setString(1, region.getRegionName());
+            PreparedStatement preparedStatement = conn.prepareStatement("Insert INTO region(name) values(?)");
+            preparedStatement.setString(1, region.getName());
             // preparedStatement.executeUpdate();
             Integer temp = preparedStatement.executeUpdate();
             return temp > 0;
@@ -91,9 +91,9 @@ public class RegionDao {
     public boolean updateData(Region region) {
         try {
             PreparedStatement preparedStatement = conn
-                    .prepareStatement("update region set regionName = ? where regionId = ?");
-            preparedStatement.setInt(2, region.getRegionId());
-            preparedStatement.setString(1, region.getRegionName());
+                    .prepareStatement("update region set name = ? where id = ?");
+            preparedStatement.setInt(2, region.getId());
+            preparedStatement.setString(1, region.getName());
             int temp = preparedStatement.executeUpdate();
             return temp > 0;
         } catch (SQLException e) {
@@ -103,11 +103,11 @@ public class RegionDao {
         return false;
     }
 
-    public boolean deleteData(int regionId) {
+    public boolean deleteData(int id) {
         try {
             PreparedStatement preparedStatement = conn
-                    .prepareStatement("delete from region where regionId = ?");
-            preparedStatement.setInt(1, regionId);
+                    .prepareStatement("delete from region where id = ?");
+            preparedStatement.setInt(1, id);
             int temp = preparedStatement.executeUpdate();
             return temp > 0;
         } catch (Exception e) {

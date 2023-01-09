@@ -47,17 +47,20 @@ public class DivisionDao {
     // get data by id from table division
     public Division getById(Integer Id) {
         Division divId = new Division();
-        String que = "select * from division where id = ?";
+        String que = "SELECT d.Id, d.Name, r.Name, r.Id FROM division d Join region r On d.regionId = r.Id WHERE d.Id = ?";
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(que);
             preparedStatement.setInt(1, Id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
 
+                Region region = new Region();
                 divId.setId(resultSet.getInt(1));
                 divId.setName(resultSet.getString(2));
-                // divId.setRegion(resultSet.getObject(3));
-
+                divId.setRegion(region);
+                region.setName(resultSet.getString(3));
+                divId.setRegion(region);
+                region.setId(resultSet.getInt(4));
             }
         } catch (Exception e) {
             // TODO: handle exception
@@ -66,22 +69,23 @@ public class DivisionDao {
         return divId;
     }
 
-    public Division getRegion() {
-        Division division = new Division();
-        String query = "SELECT r.Name FROM division d Join region r On d.regionId = r.Id";
-        try {
-            PreparedStatement prepareStatement = conn.prepareStatement(query);
-            ResultSet resultSet = prepareStatement.executeQuery();
-            while (resultSet.next()) {
-                Region region = new Region();
-                division.setRegion(region);
-                region.setName(resultSet.getString(1));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return division;
-    }
+    // public Division getRegion() {
+    // Division division = new Division();
+    // String query = "SELECT r.Name FROM division d Join region r On d.regionId =
+    // r.Id";
+    // try {
+    // PreparedStatement prepareStatement = conn.prepareStatement(query);
+    // ResultSet resultSet = prepareStatement.executeQuery();
+    // while (resultSet.next()) {
+    // Region region = new Region();
+    // division.setRegion(region);
+    // region.setName(resultSet.getString(1));
+    // }
+    // } catch (SQLException e) {
+    // e.printStackTrace();
+    // }
+    // return division;
+    // }
 
     // insert data to table division
     public boolean insertData(Division division) {
@@ -91,9 +95,9 @@ public class DivisionDao {
             PreparedStatement preparedStatement = conn
                     .prepareStatement("Insert INTO division(name, regionId) values(?,?)");
             preparedStatement.setString(1, division.getName());
-            Region region = new Region();
-            region.setId(6);
-            division.setRegion(region);
+            // Region region = new Region();
+            // region.setId(5);
+            // division.setRegion(region);
             preparedStatement.setInt(2, division.getRegion().getId());
             int temp = preparedStatement.executeUpdate();
             return temp > 0;
@@ -107,15 +111,15 @@ public class DivisionDao {
     // update data on table division
     public boolean updateData(Division division) {
         try {
-            PreparedStatement preparedStatement = conn
-                    .prepareStatement("update division set name = ? where id = ?"); // set regionId = ?
+            String query = "Update division SET Name = ?, regionId = ? WHERE Id = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            // preparedStatement.setInt(1, division.getId());
             preparedStatement.setString(1, division.getName());
-            preparedStatement.setInt(2, division.getId());
-            // preparedStatement.setString(1, division.getRegionId());
-            preparedStatement.execute();
-            return true;
+            preparedStatement.setInt(2, division.getRegion().getId());
+            preparedStatement.setInt(3, division.getId());
+            int temp = preparedStatement.executeUpdate();
+            return temp > 0;
         } catch (SQLException e) {
-            // TODO: handle exception
             e.printStackTrace();
         }
         return false;

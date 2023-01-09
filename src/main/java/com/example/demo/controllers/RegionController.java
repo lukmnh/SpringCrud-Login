@@ -27,18 +27,11 @@ public class RegionController {
         return "region/region-index";
     }
 
-    // GET DATA
-    // @GetMapping("form")
-    // public String create(Model model) {
-    // model.addAttribute("region", new Region());
-    // return "region/form";
-    // }
-
-    @GetMapping(value = { "form", "form/{regionId}" })
-    public String form(@PathVariable(required = false) Integer regionId, Model model) {
-        if (regionId != null) {
+    @GetMapping(value = { "form", "form/{id}" })
+    public String form(@PathVariable(required = false) Integer Id, Model model) {
+        if (Id != null) {
             // get data by id for update
-            model.addAttribute("region", reg.getById(regionId));
+            model.addAttribute("region", reg.getById(Id));
         } else {
             // insert data for new data
             model.addAttribute("region", new Region());
@@ -51,7 +44,7 @@ public class RegionController {
     @PostMapping("save")
     public String save(@Nullable Region region) {
         Boolean result;
-        if (region.getRegionId() != null) {
+        if (region.getId() != null) {
             result = reg.updateData(region);
         } else {
             result = reg.insertData(region);
@@ -64,29 +57,10 @@ public class RegionController {
         }
     }
 
-    // Edit Data
-    // get by id
-    // @GetMapping(value = "edit/{regionId}")
-    // public String edit(@PathVariable(required = true) int regionId, Model model)
-    // {
-    // model.addAttribute("region", reg.getById(regionId));
-    // return "region/edit";
-    // }
-
-    // @PostMapping("update")
-    // public String update(Region region) {
-    // Boolean result = reg.updateData(region);
-    // if (result) {
-    // return "redirect:/region";
-    // } else {
-    // return "region/edit";
-    // }
-    // }
-
     // DELETE
-    @PostMapping(value = "/delete/{regionId}")
-    public String delete(@PathVariable Integer regionId) {
-        Boolean result = reg.deleteData(regionId);
+    @PostMapping(value = "/delete/{id}")
+    public String delete(@PathVariable Integer id) {
+        Boolean result = reg.deleteData(id);
         if (result) {
             return "redirect:/region";
         } else {
