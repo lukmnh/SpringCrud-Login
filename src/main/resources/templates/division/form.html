@@ -8,7 +8,15 @@
     />
   </head>
   <body>
-    <h1>FORM</h1>
+    <h1
+      style="
+        justify-content: center;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+      "
+    >
+      FORM
+    </h1>
     <form th:action="@{/division/save}" method="post" th:object="${division}">
       <div class="container">
         <div class="form-group">
@@ -21,7 +29,7 @@
             readonly
           />
         </div>
-        <div class="form-group col-md-3">
+        <div class="form-group col-md-6">
           <label for="Name" class="col-form-label">Name</label>
           <input
             type="text"
@@ -31,14 +39,8 @@
           />
         </div>
 
-        <div class="form-group col-md-3">
-          <!-- <select id="regionId" class="form-control">
-            <c:forEach items="region: ${regions}">
-              <option value="${division.regionId }">
-                ${division.region.name }
-              </option>
-            </c:forEach>
-          </select> -->
+        <div class="form-group col-md-6">
+          <label for="Region" class="col-form-label">Region</label>
           <select class="form-control" id="region.id" th:field="*{region.id}">
             <option value="0">select option</option>
             <option
@@ -47,14 +49,6 @@
               th:text="${region.name}"
             ></option>
           </select>
-          <!-- <label for="regionId" class="col-form-label">RegionId</label>
-          <input
-            type="text"
-            class="form-control"
-            id="regionId"
-            th:field="*{division.region.name}"
-            th:field="*{regionId}" 
-          /> -->
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
         <a

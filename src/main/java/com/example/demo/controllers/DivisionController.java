@@ -43,7 +43,6 @@ public class DivisionController {
             model.addAttribute("division", new Division());
         }
         return "division/form";
-
     }
 
     @PostMapping("save")
