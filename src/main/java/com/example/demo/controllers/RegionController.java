@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.models.Region;
-import com.example.services.RegionService;
+import com.example.demo.services.RegionService;
 
 @Controller
 @RequestMapping("/region")
