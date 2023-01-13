@@ -1,5 +1,7 @@
 package com.example.demo.models;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 // annotation
@@ -14,6 +16,9 @@ public class Region {
     private Integer Id;
     @Column(name = "name", nullable = false)
     private String Name;
+
+    @OneToMany(mappedBy = "region")
+    private List<Division> division;
 
     public Integer getId() {
         return Id;

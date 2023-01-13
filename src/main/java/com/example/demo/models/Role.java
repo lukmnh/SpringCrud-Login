@@ -1,22 +1,23 @@
 package com.example.demo.models;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 // annotation
 @Entity
 // table name from db
-@Table(name = "division")
-public class Division {
+@Table(name = "role")
+public class Role {
     @Id
-    @Column(name = "id")
-    // annotation auto increment
+    // ID auto increment
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
     @Column(name = "name", nullable = false)
     private String name;
-    @ManyToOne
-    @JoinColumn(name = "regionid")
-    private Region region;
+    @Column(name = "level", nullable = false)
+    private String level;
 
     public Integer getId() {
         return id;
@@ -26,8 +27,8 @@ public class Division {
         return name;
     }
 
-    public Region getRegion() {
-        return region;
+    public String getLevel() {
+        return level;
     }
 
     public void setId(Integer id) {
@@ -38,8 +39,7 @@ public class Division {
         this.name = name;
     }
 
-    public void setRegion(Region region) {
-        this.region = region;
+    public void setLevel(String level) {
+        this.level = level;
     }
-
 }

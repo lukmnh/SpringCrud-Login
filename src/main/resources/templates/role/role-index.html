@@ -15,39 +15,39 @@
         font-family: Arial, Helvetica, sans-serif;
       "
     >
-      Data Region
+      Data Role
     </h1>
     <div class="container">
       <a
         class="btn btn-primary"
         style="margin-bottom: 10px; margin-top: 10px; color: azure"
-        th:href="@{/region/form}"
+        th:href="@{/role/form}"
         >create new</a
       >
       <table class="table table-striped table-bordered">
         <tr>
           <th>Id</th>
-          <th style="justify-content: center; text-align: center">
-            Region Name
-          </th>
+          <th style="justify-content: center; text-align: center">Role Name</th>
+          <th style="justify-content: center; text-align: center">Level</th>
           <th colspan="2" style="justify-content: center; text-align: center">
             Action
           </th>
         </tr>
         <tbody>
-          <tr th:each="region : ${regions}">
-            <td th:text="${region.id}"></td>
-            <td th:text="${region.name}"></td>
+          <tr th:each="role : ${role}">
+            <td th:text="${role.id}"></td>
+            <td th:text="${role.name}"></td>
+            <td th:text="${role.level}"></td>
             <td>
               <a
                 class="btn btn-info"
-                th:href="@{/region/form/{id} (id=${region.id})}"
+                th:href="@{/role/form/{id} (id=${role.id})}"
                 >edit</a
               >
             </td>
             <td>
               <form
-                th:action="@{/region/delete/{id} (id=${region.id})}"
+                th:action="@{/role/delete/{id} (id=${role.id})}"
                 th:method="post"
               >
                 <button

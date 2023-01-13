@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.models.Region;
+import com.example.demo.services.DivisionService;
 import com.example.demo.services.RegionService;
 
 @Controller
-@RequestMapping("/region")
+@RequestMapping("region")
 public class RegionController {
     // RegionDao reg = new RegionDao(DBConnection.getConnection());
     @Autowired
@@ -30,10 +31,10 @@ public class RegionController {
     }
 
     @GetMapping(value = { "form", "form/{id}" })
-    public String form(@PathVariable(required = false) Integer Id, Model model) {
-        if (Id != null) {
+    public String form(@PathVariable(required = false) Integer id, Model model) {
+        if (id != null) {
             // get data by id for update
-            model.addAttribute("region", regionService.getById(Id));
+            model.addAttribute("region", regionService.getById(id));
         } else {
             // insert data for new data
             model.addAttribute("region", new Region());

@@ -1,0 +1,64 @@
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <form th:action="@{/employee/save}" method="post">
+        <div class="form-group" hidden>
+          <label for="Id" class="col-form-label">ID</label>
+          <input
+            type="text"
+            class="form-control"
+            id="id"
+            th:field="*{employee.id}"
+          />
+        </div>
+        <div class="form-group col-md-4">
+          <label for="Fullname" class="col-form-label">FULLNAME</label>
+          <input
+            type="text"
+            class="form-control"
+            id="fullname"
+            th:field="*{employee.fullname}"
+          />
+        </div>
+        <div class="form-group col-md-4">
+          <label for="Email" class="col-form-label">EMAIL</label>
+          <input
+            type="text"
+            class="form-control"
+            id="email"
+            th:field="*{employee.email}"
+          />
+        </div>
+
+        <div class="form-group col-md-4">
+          <label for="Birthdate" class="col-form-label">BIRTHDATE</label>
+          <input
+            type="date"
+            class="form-control"
+            id="birthdate"
+            th:field="*{employee.birthdate}"
+          />
+        </div>
+
+        <div class="form-group col-md-4">
+          <label for="Password" class="col-form-label">PASSWORD</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            th:field="*{user.password}"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>
