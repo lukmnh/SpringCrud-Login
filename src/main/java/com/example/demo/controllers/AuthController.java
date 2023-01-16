@@ -80,7 +80,7 @@ public class AuthController {
         String check = employeeService.log(employee.getEmail(), user.getPassword());
         if (check != null) {
 
-            return "redirect:/employee/employee-index";
+            return "redirect:/employee";
         } else {
             return "user-management/login";
         }
