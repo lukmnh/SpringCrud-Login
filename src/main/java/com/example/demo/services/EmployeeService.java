@@ -18,4 +18,6 @@ public interface EmployeeService {
     public Boolean delete(Integer id);
 
     public String log(String email, String password);
+
+    public String getEmail(String email);
 }

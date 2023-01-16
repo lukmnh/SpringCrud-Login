@@ -9,7 +9,7 @@
   </head>
   <body>
     <div class="container">
-      <form th:action="@{login/check}" method="post">
+      <form th:action="@{user-management/check}" method="post">
         <div class="form-group col-md-4">
           <label for="Email" class="col-form-label">Email</label>
           <input
@@ -29,9 +29,9 @@
           />
         </div>
         <button type="submit" class="btn btn-primary">Login</button>
-        <small>
-          <button th:href="@{/login/forgotPassword}"></button>
-        </small>
+        <!-- <small>
+          <a th:href="@{/login/forgotPassword}"></a>
+        </small> -->
       </form>
     </div>
   </body>

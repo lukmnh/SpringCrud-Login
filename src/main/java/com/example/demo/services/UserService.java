@@ -12,7 +12,9 @@ public interface UserService {
 
     public Boolean save(User user);
 
-    // public Boolean saveLevel(User user);
+    public String findPassword(String password);
+
+    public Boolean changePassword(String password, Integer id);
 
     public Boolean delete(Integer id);
 }

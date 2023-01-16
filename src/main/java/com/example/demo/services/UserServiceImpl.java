@@ -44,14 +44,15 @@ public class UserServiceImpl implements UserService {
         return !userRepository.findById(id).isPresent();
     }
 
-    // @Override
-    // public Boolean saveLevel(User user) {
-    // Role role = new Role();
-    // role.setId(roleService.getIdByLevel());
-    // userRepository.save(user);
-    // // TODO Auto-generated method stub
-    // return userRepository.findById(user.getId())
-    // .isPresent();
-    // }
+    @Override
+    public String findPassword(String password) {
+        return userRepository.findPassword(password);
+    }
+
+    @Override
+    public Boolean changePassword(String password, Integer id) {
+        userRepository.changePassword(password, id);
+        return userRepository.findById(id).isPresent();
+    }
 
 }

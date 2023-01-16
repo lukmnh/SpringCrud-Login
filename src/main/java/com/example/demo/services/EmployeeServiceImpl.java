@@ -62,4 +62,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository.log(email, password);
     }
 
+    @Override
+    public String getEmail(String email) {
+        return employeeRepository.getEmail(email);
+    }
+
 }
