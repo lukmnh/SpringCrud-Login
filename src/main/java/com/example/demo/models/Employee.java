@@ -1,6 +1,7 @@
 package com.example.demo.models;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -30,7 +31,7 @@ public class Employee {
 
     @Column(name = "birthdate")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate Birthdate;
+    private Date Birthdate;
 
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
     private User user;
@@ -59,11 +60,11 @@ public class Employee {
         return Email;
     }
 
-    public void setBirthdate(LocalDate birthdate) {
+    public void setBirthdate(Date birthdate) {
         Birthdate = birthdate;
     }
 
-    public LocalDate getBirthdate() {
+    public Date getBirthdate() {
         return Birthdate;
     }
 

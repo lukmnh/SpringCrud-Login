@@ -2,6 +2,8 @@ package com.example.demo.services;
 
 import java.util.List;
 
+import com.example.demo.dto.Register;
+import com.example.demo.dto.ResponsLogin;
 // import com.example.demo.dto.Register;
 import com.example.demo.models.Employee;
 // import com.example.demo.models.User;
@@ -15,9 +17,12 @@ public interface EmployeeService {
 
     public Boolean save(Employee employee);
 
+    public Boolean register(Register register);
+
     public Boolean delete(Integer id);
 
-    public String log(String email, String password);
+    public ResponsLogin log(String email, String password);
 
-    public String getEmail(String email);
+    public Employee findEmail(String email);
+
 }

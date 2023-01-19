@@ -1,13 +1,22 @@
 package com.example.demo.controllers;
 
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.demo.dto.Login;
+import com.example.demo.dto.Register;
+import com.example.demo.dto.ResponsLogin;
 import com.example.demo.models.Employee;
 import com.example.demo.models.Role;
 import com.example.demo.models.User;
@@ -19,8 +28,6 @@ import com.example.demo.services.RoleService;
 import com.example.demo.services.UserService;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("user-management")
@@ -34,56 +41,122 @@ public class AuthController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    public AuthController(AuthenticationManager authenticationManager, UserService userService, RoleService roleService,
+            EmployeeService employeeService, PasswordEncoder passwordEncoder) {
+        this.authenticationManager = authenticationManager;
+        this.userService = userService;
+        this.roleService = roleService;
+        this.employeeService = employeeService;
+        this.passwordEncoder = passwordEncoder;
+    }
+
     @GetMapping("register")
     public String register(Model model) {
-        model.addAttribute("employee", new Employee());
-        model.addAttribute("user", new User());
+        // model.addAttribute("employee", new Employee());
+        // model.addAttribute("user", new User());
+
+        model.addAttribute("register", new Register());
 
         return "user-management/register";
     }
 
     @PostMapping("save")
-    public String save(Employee employee, User user) {
-        Boolean result;
-        Boolean result2;
-        String email;
+    public String save(Register register) {
 
-        email = employeeService.getEmail(employee.getEmail());
-        if (email == null) {
-            result = employeeService.save(employee);
-            user.setId(employeeService.findIdByEmail(employee.getEmail()));
+        Boolean resultEmployee;
+        Boolean resultUser;
+        Employee emp = new Employee();
+        emp.setFullname(register.getFullname());
+        emp.setEmail(register.getEmail());
+        emp.setBirthdate(register.getBirthdate());
+        resultEmployee = employeeService.save(emp);
+        User user = new User();
+        user.setId(employeeService.findIdByEmail(register.getEmail()));
+        // user.setId(employeeService.findIdByEmail(employee.getEmail()));
 
-            Role role = new Role();
-            role.setId(roleService.getIdByLevel());
-            user.setRole(role);
-            result2 = userService.save(user);
-            if (result && result2) {
-                return "redirect:/employee";
-            } else {
-                return "user-management/register";
-            }
+        Role role = new Role();
+        role.setId(roleService.getIdByLevel());
+        user.setRole(role);
+        user.setPassword(passwordEncoder.encode(register.getPassword()));
+        resultUser = userService.save(user);
+
+        if (resultEmployee && resultUser) {
+            return "redirect:/employee";
         } else {
             return "user-management/register";
         }
-
     }
 
-    @GetMapping(value = { "login" })
+    // @PostMapping("save")
+    // public String save(Employee employee, User user) {
+    // Boolean result;
+    // Boolean result2;
+
+    // result = employeeService.save(employee);
+    // user.setId(employeeService.findIdByEmail(employee.getEmail()));
+    // user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+    // Role role = new Role();
+    // role.setId(roleService.getIdByLevel());
+    // user.setRole(role);
+    // result2 = userService.save(user);
+    // if (result && result2) {
+    // return "redirect:/employee";
+    // } else {
+    // return "user-management/register";
+    // }
+
+    // }
+
+    // @GetMapping(value = { "login" })
+    // public String login(Model model) {
+    // model.addAttribute("employee", new Employee());
+    // model.addAttribute("user", new User());
+    // return "user-management/login";
+    // }
+
+    // @PostMapping(value = { "check" })
+    // public String check(Employee employee, User user) {
+    // Boolean check = employeeService.log(employee.getEmail(), user.getPassword());
+    // if (check != null) {
+
+    // return "redirect:/employee";
+    // } else {
+    // return "user-management/login";
+    // }
+    // }
+
+    @GetMapping(value = "login")
     public String login(Model model) {
-        model.addAttribute("employee", new Employee());
-        model.addAttribute("user", new User());
+        // model.addAttribute("employee", employee);
+        // model.addAttribute("user", user);
+        model.addAttribute("login", new Login());
         return "user-management/login";
     }
 
     @PostMapping(value = { "check" })
-    public String check(Employee employee, User user) {
-        String check = employeeService.log(employee.getEmail(), user.getPassword());
-        if (check != null) {
+    public String authLogin(Login login, Model model) {
+        org.springframework.security.core.Authentication authentication = authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(login.getEmail(), login.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        return "user-management/user";
+        // Object data = userService.login(login);
 
-            return "redirect:/employee";
-        } else {
-            return "user-management/login";
-        }
+        // if (data.equals(false)) {
+        // model.addAttribute("login", new Login());
+        // return "user-management/login";
+        // } else {
+        // model.addAttribute("users",
+        // userService.getById(employeeService.findIdByEmail(login.getEmail())));
+        // // model.addAttribute("users", new User());
+        // return "redirect:/region";
+        // }
     }
 
     @GetMapping(value = { "changePassword/{id}" })

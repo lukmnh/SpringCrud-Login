@@ -3,12 +3,17 @@ package com.example.demo.dto;
 import java.time.LocalDate;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Register {
     private Integer id;
     private String fullname;
     private String email;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthdate;
     private String password;
+    private String name;
+    private Integer role_id;
 
     public Integer getId() {
         return id;
@@ -38,7 +43,7 @@ public class Register {
         return birthdate;
     }
 
-    public void getBirthdate(Date birthdate) {
+    public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
 
@@ -48,5 +53,21 @@ public class Register {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getRoleId() {
+        return role_id;
+    }
+
+    public void setRoleId(Integer role_id) {
+        this.role_id = role_id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

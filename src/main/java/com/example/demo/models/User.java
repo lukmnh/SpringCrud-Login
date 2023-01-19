@@ -10,8 +10,12 @@ import javax.persistence.GenerationType;
 // import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
+
+import com.example.demo.dto.ResponsLogin;
 
 @Entity
 @Table(name = "user")
