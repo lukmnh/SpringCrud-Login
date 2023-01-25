@@ -33,8 +33,8 @@ public class Employee {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date Birthdate;
 
-    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
-    private User user;
+    // @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
+    // private User user;
 
     public void setId(Integer id) {
         Id = id;
@@ -68,12 +68,12 @@ public class Employee {
         return Birthdate;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+    // public void setUser(User user) {
+    // this.user = user;
+    // }
 
-    public User getUser() {
-        return user;
-    }
+    // public User getUser() {
+    // return user;
+    // }
 
 }

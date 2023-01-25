@@ -42,8 +42,9 @@ public class SecurityConfig {
                         .antMatchers("/division").permitAll()
                         .antMatchers("/employee/**").permitAll()
                         .antMatchers("/region/**").hasAuthority("Staff")
-                        .anyRequest()
-                        .authenticated()
+                        // .anyRequest()
+                        // .authenticated()
+                        // .httpBasic
                         .and()
                         .formLogin()
                         .loginPage("/user-management/login")
